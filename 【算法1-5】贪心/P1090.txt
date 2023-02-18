@@ -1,0 +1,28 @@
+#include<iostream>
+#include<functional>
+#include<vector>
+#include<queue>
+using namespace std;
+int main()
+{
+	int n, sum = 0;
+	cin >> n;
+	priority_queue<int,vector<int>,greater<int>>v;
+	for (int i = 0; i < n; i++)
+	{
+		int a;
+		cin >> a;
+		v.push(a);
+	}
+	while (v.size() > 1)
+	{
+		int ret1 = v.top();
+		v.pop();
+		int ret2 = v.top();
+		v.pop();
+		v.push(ret1 + ret2);
+		sum += ret1 + ret2;
+	}
+	cout <<sum;
+	return 0;
+}

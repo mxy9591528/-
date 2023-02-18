@@ -1,0 +1,30 @@
+#include<iostream>
+#include<unordered_map>
+#include<vector>
+using namespace std;
+int main()
+{
+    unordered_map<int,bool>m;
+    int n,a;
+    cin>>n;
+    for(int i=0;i<7;i++)
+    {
+        cin>>a;
+        m[a]=true;
+    }
+    vector<int>v(7);
+    vector<int>win(8,0);
+    for(int i=0;i<n;i++)
+    {
+        int cnt=0;
+        for(int j=0;j<7;j++)
+        {
+            cin>>v[j];
+            if(m[v[j]])cnt++;
+        }
+        win[cnt]++;
+    }
+    for(int i=7;i>0;i--)
+        cout<<win[i]<<" ";
+    return 0;
+}

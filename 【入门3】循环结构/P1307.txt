@@ -1,0 +1,27 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+long long r(long long n)
+{
+    long long sum=0;
+    while(n)
+    {
+        sum=sum*10+n%10;
+        n/=10;
+    }
+    return sum;
+}
+int main()
+{
+    long long n;
+    bool flag;
+    cin>>n;
+    if(n>=0)
+        flag=true;
+    else
+        flag=false;
+    n=abs(n);
+    n=flag?r(n):r(n)*-1;
+    cout<<n;
+    return 0;
+}

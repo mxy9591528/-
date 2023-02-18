@@ -1,0 +1,103 @@
+#include <map>
+#include <vector>
+#include <cstring>
+#include<string>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+const int maxn = 100001;
+int n, m, num, cnt[maxn];
+string s;
+map<string,vector<int> >a;
+int main()
+{	
+	std::ios::sync_with_stdio(false);//要关闭同步，快很多
+	cin>>n;
+	for(int i = 1; i <= n; i++)
+	{
+		cin>>num;
+		for(int j = 1; j <= num; j++)
+		{
+			cin>>s;
+			a[s].push_back(i);
+		}
+	}
+	cin>>m;
+	for(int i = 1; i <= m; i++)
+	{
+		cin>>s;
+		memset(cnt,0,sizeof(cnt));
+		for(int j = 0; j < a[s].size(); j++)
+		if(cnt[a[s][j]] == 0)
+		{
+			cout<<a[s][j]<<" ";
+			cnt[a[s][j]]++;
+		}
+		cout<<endl;
+	}
+	return 0;
+}
+
+
+
+#include<cstdio>
+#include<iostream>
+#include<algorithm>
+#include <bitset>
+
+using namespace std;
+
+int n,m;
+char s[1001];
+int l;
+int tot=0;
+int tri[300007][26];
+bitset<1001> b[500007];
+
+
+inline void insert(char *s,int x){
+    int rt=0;
+    for(int i=0;s[i];i++){
+        int v=s[i]-'a';
+        if(!tri[rt][v]){
+            tri[rt][v]=++tot;
+        }
+        rt=tri[rt][v];
+    }
+    b[rt][x]=1;
+}
+
+inline void query(char *s){
+    int rt=0;
+    for(int i=0;s[i];i++){
+        int v=s[i]-'a';
+        if(!tri[rt][v]){
+            cout<<' '<<endl;
+            return;
+        }
+        rt=tri[rt][v];
+    }
+    for(int i=1;i<=n;i++){
+        if(b[rt][i]==1){
+            cout<<i<<' ';
+        }
+    }
+    cout<<endl;
+}
+
+int main(){
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        cin>>l;
+        for(int j=1;j<=l;j++){
+            cin>>s;
+            insert(s,i);
+        }
+    }
+    cin>>m;
+    for(int i=1;i<=m;i++){
+        cin>>s;
+        query(s);
+    }
+    return 0;
+}

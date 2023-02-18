@@ -1,0 +1,78 @@
+#include<iostream>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int MAXN=1010,MAXM=10010;
+int pro[MAXM],ans[MAXM],tmp[MAXM];
+typedef struct Node
+{
+    int l,r;
+}P;
+bool cmp(const P&p1,const P&p2)
+{
+    return p1.l*p1.r<p2.l*p2.r;
+}
+void copy(int*a,int*b)
+{
+	for(int i=0;i<MAXM;i++) a[i]=b[i];
+}
+bool more(int*a,int*b)
+{
+	for(int i=MAXM-1;i>=0;i--)
+	{
+		if(a[i]>b[i]) return 1;
+		if(a[i]<b[i]) return 0;
+	}
+	return 0;
+}
+void times(int*a,int num)
+{
+	for(int i=MAXM-2;i>=0;i--) a[i]*=num;
+	for(int i=0;i<MAXM-1;i++)
+	{
+		a[i+1]+=(a[i]/10);
+		a[i]%=10;
+	}
+}
+void div(int*a,int*b,int num)
+{
+	memset(b,0,sizeof(b));
+	int x=0;
+	for(int i=MAXM-1;i>=0;i--)
+	{
+    	x=x*10+a[i];
+		b[i]=x/num;
+		x%=num;
+	}
+}
+void print(int*a)
+{
+	bool flag=0;
+	for(int i=MAXM-1;i>=0;i--)
+	{
+		if(!flag)
+		{
+			if(a[i]) flag=1;
+			else continue;
+		}
+		cout<<a[i];
+	}
+}
+int main()
+{
+    int n;
+    cin>>n;
+    P p[n+1];
+    for(int i=0;i<=n;i++)cin>>p[i].l>>p[i].r;
+    sort(p+1,p+n+1,cmp);
+    pro[0]=1;
+    for(int i=0;i<=n;i++)
+    {
+		div(pro,tmp,p[i].r);
+		if(more(tmp,ans)) 
+		    copy(ans,tmp);
+		times(pro,p[i].l);
+	}
+	print(ans);
+    return 0;
+}

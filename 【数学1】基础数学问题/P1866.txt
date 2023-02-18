@@ -1,0 +1,11 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+    int n,i,maxnumber[51]; long long ans=1; cin>>n;
+    for(i=1;i<=n;i++)cin>>maxnumber[i];
+    sort(maxnumber+1,maxnumber+n+1);  //排序，默认升序
+    for(i=1;i<=n;i++){ans*=(maxnumber[i]-i+1); ans%=1000000007;}  //第i个号码的种数是maxnumber[i]-i+1
+    cout<<ans<<endl; return 0;
+}

@@ -1,0 +1,62 @@
+#include <iostream>
+#include<vector>
+#include <algorithm>
+#include <cmath>
+
+using namespace std;
+
+const int N = 500;
+
+int p;
+int a[N], res[N];
+
+void mul(int a[], int b[])
+{
+    vector<int>tmp(N,0);
+
+    for(int i = 0; i < N; i++)
+        for(int j = 0; i + j < N; j++)
+            tmp[i + j] += a[i] * b[j];
+
+    for(int i = 0, t = 0; i < N; i++)
+    {
+        t += tmp[i];
+        a[i] = t % 10;
+        t /= 10;
+    }
+}
+
+void qui(int k)
+{
+    res[0] = 1;
+    a[0] = 2;
+
+    while(k)
+    {
+        if(k & 1)
+            mul(res, a);
+        mul(a, a);
+        k >>= 1;
+    }
+    res[0]--;
+}
+
+int main()
+{
+
+    cin >> p;
+
+    cout << int(p * log10(2)) + 1 << endl;
+
+    qui(p);
+
+    for(int i = 0, k = N - 1; i < 10; i++)
+    {
+        for(int j = 0; j < 50; j++, k--)
+            cout << res[k];
+        cout << endl;
+    }
+
+    return 0;
+}
+

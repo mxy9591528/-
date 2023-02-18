@@ -1,0 +1,65 @@
+#include <iostream>
+#include <cmath>
+#define int long long
+using namespace std;
+
+const int MOD = 1e9 + 7, W = 5e3 + 5;
+int n, x, sum[W], ans, maxi;
+
+signed main() 
+{
+	cin >> n;
+	for (int i = 1; i <= n; i++) 
+	{
+		cin >> x;
+		maxi = max(maxi, x);
+		sum[x]++;
+	}
+	for (int i = 1; i <= maxi; i++) 
+	{
+		int cur = sum[i] * (sum[i] - 1) / 2 % MOD,s = 0;
+		for (int j = 1; j * 2 <= i; j++)
+			if (j * 2 == i)
+				s = (s + sum[j] * (sum[j] - 1) / 2) % MOD;
+			else 
+				s = (s + sum[j] * sum[i - j]) % MOD;
+		ans = (ans + cur * s) % MOD;
+	}
+	cout << ans << endl;
+	return 0;
+}
+
+
+
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+int n,b[5010],a[1000010],minn=1e9,maxx;
+long long ans;
+const int mod=1e9+7;
+int main()
+{
+	cin>>n;
+	for(int i=1; i<=n; i++)
+	{
+		cin>>a[i];
+		minn=min(minn,a[i]);
+		maxx=max(maxx,a[i]);
+		b[a[i]]++;
+	}
+	for(int i=minn+1; i<=maxx; i++)
+	{
+		if(b[i]>1)
+			for(int j=minn; j<=i/2; j++)
+				if(b[j]>=1&&b[i-j]>=1)
+				{
+					if(j*2!=i)
+					    ans=(ans+(b[i]*(b[i]-1)/2)*b[j]*b[i-j]%mod)%mod;
+					else if
+					    (b[j]>1)ans=(ans+((b[i]*(b[i]-1)/2)*(b[j]*(b[j]-1)/2)%mod)%mod)%mod;
+				}
+	}
+	cout<<ans%mod;
+	return 0;
+}

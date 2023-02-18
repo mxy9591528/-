@@ -1,0 +1,34 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+struct P{
+    string name;
+    bool dir;
+}s[100005];
+int main()
+{
+    int m,n;
+    cin>>m>>n;
+    for(int i=0;i<m;i++)
+        cin>>s[i].dir>>s[i].name;
+    int a,b,res=0;
+    while(cin>>a>>b)
+    {
+        if(s[res].dir==0)
+        {
+            if(a==0)
+                res=abs(res-b+m)%m;
+            else 
+                res=(res+b)%m;
+        }
+        else
+        {
+            if(a==0)
+                res=(res+b)%m;
+            else
+                res=abs(res-b+m)%m;
+        }
+    }
+    cout<<s[res].name;
+    return 0;
+}

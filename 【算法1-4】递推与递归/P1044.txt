@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+typedef long long ll;
+const int N=20;
+ll f[N][N];
+ll dfs(int i,int j)
+{
+	if(f[i][j]) return f[i][j];
+	if(i==0)return 1;
+	if(j>0)f[i][j]+=dfs(i,j-1);
+	f[i][j]+=dfs(i-1,j+1);
+	return f[i][j];
+}
+int main()
+{
+	int n;
+	cin>>n;
+	cout<<dfs(n,0);
+	return 0;
+}
+
+#include <iostream>
+using namespace std;
+
+int n, f[30];
+int main()
+{
+    //递推实现卡特兰数 
+    cin>>n;
+    f[0] = 1, f[1] = 1;
+    for(int i=2; i<=n; i++)              
+        for(int j=0; j<i; j++) 
+            f[i] += f[j] * f[i-j-1];
+    cout<<f[n];
+    return 0;
+}

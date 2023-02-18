@@ -1,0 +1,89 @@
+#include<cstdio>
+using namespace std;
+int zhs[2005][2005],dp[2005][2005];
+int t,k,n,m;
+inline int read()  //读入优化，速度++
+{
+	int x=0,f=1;
+	char ch=getchar();
+	while(ch>'9'||ch<'0')
+	{
+		if(ch=='-')
+		f=-1;
+		ch=getchar();
+	}
+	while(ch>='0'&&ch<='9')
+	{
+		x=x*10+ch-'0';
+		ch=getchar();
+	}
+	return x*f;
+}
+int main()
+{
+	t=read();k=read();
+	for(int i=1;i<=2000;++i)
+	{
+		zhs[i][0]=1;
+		zhs[i][i]=1;
+	}
+	zhs[1][1]=1;
+	for(int i=2;i<=2000;++i)
+		for(int j=1;j<i;++j)
+		{
+			zhs[i][j]=(zhs[i-1][j]+zhs[i-1][j-1])%k;
+		}//组合恒等式
+	for(int i=1;i<=2000;++i)
+	{
+		for(int j=1;j<=i;++j)
+		{
+			dp[i][j]=dp[i-1][j]+dp[i][j-1]-dp[i-1][j-1];
+			if(!zhs[i][j])
+			++dp[i][j];
+		}
+		dp[i][i+1]=dp[i][i];//便于调用
+	}
+	for(int i=1;i<=t;++i)
+	{
+		n=read();m=read();
+		if(m>n)
+		m=n;
+		printf("%d\n",dp[n][m]);
+	}
+	return 0;
+}
+
+
+#include <iostream>
+#define maxn 2005
+using namespace std;
+int c[maxn][maxn];
+int s[maxn][maxn];
+int t,k,n,m;
+int main(){
+    cin >> t >> k;
+    for (int i=1;i<maxn;i++){
+        c[i][0] = 1;
+        c[i][i] = 1;
+        for (int j=1;j<i;j++)
+            c[i][j] = (c[i-1][j] + c[i-1][j-1]) % k;
+    }
+
+    for (int i=1;i<maxn;i++)
+        for (int j=1;j<=i;j++){
+            s[i][j] = s[i][j-1];
+            if (c[i][j] == 0)
+                s[i][j]++;
+        }
+
+    for (int time=1;time<=t;time++){
+        cin >> n >> m;
+        int ans = 0;
+        for (int i=1;i<=n;i++){
+            int j = min(i,m);
+            ans += s[i][j];
+        }
+        cout << ans << endl;
+    }    
+    return 0;
+}

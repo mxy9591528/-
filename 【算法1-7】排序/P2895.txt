@@ -1,0 +1,46 @@
+#include<iostream>
+#include<queue>
+#include<cstring>
+using namespace std;
+const int inf=0x3f3f3f3f;
+int mp[302][302];
+bool v[302][302];
+struct point {
+	int x,y,step;
+};
+int dx[]= {0,0,-1,1},dy[]= {-1,1,0,0};
+int BFS(point a) {
+	queue<point>q;
+	q.push(a);
+	v[a.x][a.y]=1;
+	while(!q.empty()) {
+		point b=q.front();
+		q.pop();
+		for(int i=0; i<4; ++i) {
+			point c;
+			c.x=b.x+dx[i],c.y=b.y+dy[i],c.step=b.step+1;
+			if(c.x==-1||c.y==-1)continue;
+			if(mp[c.x][c.y]==inf)return c.step;
+			if(c.step<mp[c.x][c.y]&&!v[c.x][c.y]) {
+				q.push(c);
+				v[c.x][c.y]=1;
+			}
+		}
+	}
+	return -1;
+}
+int main() {
+	int m;
+	cin>>m;
+	memset(mp,inf,sizeof(mp));
+	for(int i=1,x,y,t; i<=m; ++i) {
+		cin>>x>>y>>t;
+		mp[x][y]=min(mp[x][y],t);
+		for(int d=0; d<4; ++d) {
+			if(x+dx[d]==-1||y+dy[d]==-1)continue;
+			mp[x+dx[d]][y+dy[d]]=min(mp[x+dx[d]][y+dy[d]],t);
+		}
+	}
+	cout<<BFS((point) {0,0,0});
+	return 0;
+}

@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std ;
+int f[5005] ;
+int findFather(int x)
+{
+	if(x == f[x]) 
+		return x ;
+	return f[x] = findFather(f[x]) ;
+}
+int main()
+{
+	int a , b ;
+	int n , m , p ;
+	cin>>n>>m>>p;
+	for(int i = 1 ; i <= n ; ++i)//初始化自己的祖先是自己 
+		f[i] = i ;
+	for(int i = 1 ; i <= m ; ++i)
+	{
+		cin>>a>>b; 
+		f[findFather(a)] = findFather(b) ;
+	}	
+	for(int j = 1 ; j <= p ; ++j)
+	{
+		cin>>a>>b;
+		if(findFather(a) == findFather(b))//如果两个人的祖先一样输出Yes 
+			cout<<"Yes"<<endl;
+		else                      //否则输出No 
+			cout<<"No"<<endl;
+	}
+	return 0 ;
+}

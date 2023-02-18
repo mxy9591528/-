@@ -1,0 +1,41 @@
+#include<iostream>
+#include<limits.h>
+#include<algorithm>
+#define lnf INT_MAX/4
+using namespace std;
+int n;
+int a[101][101];//邻接矩阵存图
+int b[100000000];
+int main()
+{
+    cin>>n;
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=n;j++)
+           if(i!=j)a[i][j]=lnf;
+    for(int i=1;i<n;i++)
+    {
+        int x,y;
+        cin>>x>>y;
+        a[x][y]=1;//父亲到孩子距离为1
+        a[y][x]=2;//孩子到父亲距离为2
+    }
+    for(int k=1;k<=n;k++)
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=n;j++)
+                 a[i][j]=min(a[i][j],a[i][k]+a[k][j]);//Floyd算法
+    int u,v;
+    cin>>u>>v;
+    int maxsum=0,maxd=0,maxn=1;
+    for(int i=2;i<=n;i++)
+    {
+        maxsum=max(maxsum,a[1][i]);//深度
+        b[a[1][i]]++;//同时统计每一层的节点数
+        maxn=max(maxn,a[i][1]);
+    }
+    for(int i=1;i<=maxn;i++)
+        maxd=max(maxd,b[i]);//宽度
+    cout<<maxsum+1<<endl;
+    cout<<maxd<<endl;
+    cout<<a[u][v]<<endl;//树上距离
+    return 0;
+}

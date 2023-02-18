@@ -1,0 +1,37 @@
+#include<iostream>
+using namespace std;
+const int N=1e5+10;
+bool vis[N];    
+int primes[N];    
+int x=0;
+void initPrime() 
+{
+    for(int i=2;i<=N;i++)
+    {
+        if(!vis[i]) primes[x++]=i;
+        for(int j=0;j<x;j++)
+        {
+            if(i*primes[j]>N) break;
+            vis[i*primes[j]]=true;
+            if(i%primes[j]==0) break;
+        }
+    }
+}
+int main()
+{
+    initPrime();
+    int L;
+    cin>>L;
+    int sum=0,n=0;
+    for(int i=0;i<x;i++)
+    {
+        sum+=primes[i];
+        if(sum<=L)
+        {
+            cout<<primes[i]<<endl;
+            n++;
+        }
+    }
+    cout<<n;
+    return 0;
+}

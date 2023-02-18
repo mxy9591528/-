@@ -1,0 +1,105 @@
+#include<iostream>
+#include<vector>
+#include<string>
+#include<map>
+using namespace std;
+bool zt[1600005];
+map<string, string>d = { {"0","北"},{"北","1"},{"1","东"},{"东","2"},{"2","南"},{"南","3"},{"3","西"},{"西","0"} };
+void move(int&x, int&y, string&dir, vector<string>&m,char c)
+{
+	if (dir == "北")
+	{
+		if (x - 1 >= 0 && m[x - 1][y] != '*')
+		{
+			m[x][y] = '.';
+			m[x - 1][y] = c;
+			x--;
+		}
+		else
+		{
+			dir = d[d[dir]];
+		}
+	}
+	else if (dir == "东")
+	{
+		if (y + 1 < 10 && m[x][y + 1] != '*')
+		{
+			m[x][y] = '.';
+			m[x][y + 1] = c;
+			y++;
+		}
+		else
+		{
+			dir = d[d[dir]];
+		}
+	}
+	else if (dir == "南")
+	{
+		if (x + 1 < 10 && m[x + 1][y] != '*')
+		{
+			m[x][y] = '.';
+			m[x + 1][y] = c;
+			x++;
+		}
+		else
+		{
+			dir = d[d[dir]];
+		}
+	}
+	else
+	{
+		if (y - 1 >= 0 && m[x][y - 1] != '*')
+		{
+			m[x][y] = '.';
+			m[x][y - 1] = c;
+			y--;
+		}
+		else
+		{
+			dir = d[d[dir]];
+		}
+	}
+}
+int main()
+{
+	vector<string>m;
+	string tmp;
+	int cx, cy, fx, fy;
+	string cdir = d["0"], fdir = d["0"];
+	int t = 0;
+	for (int i = 0; i < 10; i++)
+	{
+		cin >> tmp;
+		for (int j = 0; j < 10; j++)
+		{
+			if (tmp[j] == 'C')
+			{
+				cx = i;
+				cy = j;
+			}
+			if (tmp[j] == 'F')
+			{
+				fx = i;
+				fy = j;
+			}
+		}
+		m.emplace_back(tmp);
+	}
+	while (cx != fx ||cy != fy)
+	{
+	    int tdz = fx + fy * 10 + cx * 100 + cy * 1000 +  (d[fdir][0]-'0')* 10000 + (d[cdir][0]-'0') * 40000;
+		if (zt[tdz]) {
+			cout << 0 << endl;
+			return 0;
+		}
+		else
+		{
+		    zt[tdz]=1;
+		}
+		move(cx, cy, cdir, m,'C');
+		move(fx, fy, fdir, m,'F');
+		t++;
+	}
+	cout << t;
+	return 0;
+}

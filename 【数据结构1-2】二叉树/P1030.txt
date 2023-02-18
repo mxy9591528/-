@@ -1,0 +1,18 @@
+#include<iostream>
+#include<string>
+using namespace std;
+void beford(string in,string after){
+    if (in.size()>0){
+        char ch=after[after.size()-1];
+        cout<<ch;
+        int k=in.find(ch);
+        beford(in.substr(0,k),after.substr(0,k));
+        beford(in.substr(k+1),after.substr(k,in.size()-k-1));
+    }
+}
+int main(){
+    string inord,aftord;
+    cin>>inord>>aftord;
+    beford(inord,aftord);
+    return 0;
+}

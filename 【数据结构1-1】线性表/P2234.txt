@@ -1,0 +1,36 @@
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <set>
+using namespace std;
+set<int> s;
+int n,a;
+int main()
+{
+	cin>>n>>a;s.insert(a);
+	int ans=a;
+	for(int i=2;i<=n;i++)
+	{
+		cin>>a;
+		set<int>::iterator r=s.lower_bound(a);
+		if(r==s.end())
+		{
+		    ans+=abs(a-*(--r));
+		    s.insert(a);
+		    continue;
+		}
+		set<int>::iterator l;
+		if(r!=s.begin())
+		    l=--s.lower_bound(a);
+        else 
+        {
+            ans+=abs(a-*r);
+            s.insert(a);
+            continue;
+        }
+		ans+=min(abs(a-*l),abs(a-*r));
+		s.insert(a);
+	}
+	cout<<ans<<endl;
+	return 0;
+}

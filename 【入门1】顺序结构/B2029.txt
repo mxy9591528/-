@@ -1,0 +1,12 @@
+#define _USE_MATH_DEFINES
+#include<iostream>
+#include<cmath>
+using namespace std;
+int main()
+{
+    int h,r;
+    cin>>h>>r;
+    float v=M_PI*r*r*h;
+    cout<<(int)ceil(20*1e3/v);
+    return 0;
+}

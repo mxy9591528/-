@@ -1,0 +1,21 @@
+#include<map>
+#include<iostream>
+using namespace std;
+int main()
+{
+    string s;
+    map<char,int>m;
+    getline(cin,s);
+    int index=0;
+    while((index=s.find(':',index))!=-1)
+    {
+        if(isdigit(s[index+2]))
+            m[s[index-1]]=s[index+2]-'0';
+        else
+            m[s[index-1]]=m[s[index+2]];
+        index++;
+    }
+    for(auto&i:m)
+        cout<<i.second<<" ";
+    return 0;
+}

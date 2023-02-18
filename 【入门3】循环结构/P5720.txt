@@ -1,0 +1,16 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+int main()
+{
+    long long a;
+    cin>>a;
+    int cnt=1;
+    while(a!=1)
+    {
+        a=(int)floor(a/2.0);
+        cnt++;
+    }
+    cout<<cnt;
+    return 0;
+}

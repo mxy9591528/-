@@ -1,0 +1,33 @@
+#include<iostream>
+#include<string>
+#include<map>
+using namespace std;
+string oldest(string s,map<string,string>&m)
+{
+    if(m.count(s)&&m[s]=="")return s;
+    else if(m[s]!="")
+    {
+        string tmp=m[s];
+        while(m[tmp]!="")
+        {
+            tmp=m[tmp];
+        }
+        return tmp;
+    }
+}
+int main()
+{
+	map<string, string>m;
+	string s;
+	string father;
+	while (cin >> s && s != "$")
+	{
+		switch (s[0])
+		{
+		case '#':father.assign(s.begin() + 1, s.end()); break;
+		case '+':s.assign(s.begin() + 1, s.end()); m.insert({ s,father }); break;
+		case '?':s.assign(s.begin() + 1, s.end()); cout << s << " " << oldest(s,m) << endl; break;
+		}
+	}
+	return 0;
+}

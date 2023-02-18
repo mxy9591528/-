@@ -1,0 +1,16 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int a[10];
+    for(int i=0;i<10;i++)cin>>a[i];
+    int d;
+    cin>>d;
+    d+=30;
+    int res=0;
+    for(int i=0;i<10;i++)
+        if(a[i]<=d)
+            res++;
+    cout<<res;
+    return 0;
+}

@@ -1,0 +1,21 @@
+#include<cstdio>
+#include<cmath>
+int main()
+{
+    int s,v;
+    scanf("%d %d",&s,&v);
+    int wast=ceil(s*1.0/v);
+    int t=wast+10;
+    if(t>=24*60)
+    {
+        t-=24*60;
+    }
+    int h=7-t/60;
+    if(h<0)
+    {
+        h+=24;
+    }
+    int m=60-t%60;
+    printf("%02d:%02d",h,m);
+    return 0;
+}

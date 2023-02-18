@@ -1,0 +1,56 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+typedef struct P
+{
+    int chinese;
+    int math;
+    int english;
+    int sum;
+    int id;
+}P;
+bool cmp(const P&e1,const P&e2)
+{
+    if(e1.sum>e2.sum)
+    {
+        return true;
+    }
+    else if(e1.sum<e2.sum)
+    {
+        return false;
+    }
+    else
+    {
+        if(e1.chinese>e2.chinese)
+        {
+            return true;
+        }
+        else if(e1.chinese<e2.chinese)
+        {
+            return false;
+        }
+        else
+        {
+            return e1.id<e2.id;
+        }
+    }
+}
+int main()
+{
+    int n;
+    cin>>n;
+    P p[n];
+    for(int i=0;i<n;i++)
+    {
+        p[i].sum=0;
+        cin>>p[i].chinese>>p[i].math>>p[i].english;
+        p[i].sum+=p[i].chinese+p[i].math+p[i].english;
+        p[i].id=i+1;
+    }
+    sort(p,p+n,cmp);
+    for(int i=0;i<5;i++)
+    {
+        cout<<p[i].id<<" "<<p[i].sum<<endl;
+    }
+    return 0;
+}

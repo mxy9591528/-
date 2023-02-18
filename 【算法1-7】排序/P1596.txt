@@ -1,0 +1,43 @@
+#include<iostream>
+using namespace std;
+int dx[8]={-1,-1,-1,0,0,1,1,1};//x方向
+int dy[8]={-1,0,1,-1,1,-1,0,1};//y方向
+int n,m,ans;
+char a[105][105];
+void dfs(int x,int y)
+{
+    int r,c;
+    a[x][y]='.';
+    for (int i=0;i<8;i++)
+    {
+        r=x+dx[i];
+        c=y+dy[i];
+        if (r<1||r>n||c<1||c>m||a[r][c]=='.')
+            continue;
+        a[r][c]='.';
+        dfs(r,c);
+    }
+}
+int main()
+{
+    cin>>n>>m;
+    for (int i=1;i<=n;i++)
+    {
+        for (int j=1;j<=m;j++)
+            cin>>a[i][j];
+    }
+    ans=0;
+    for (int i=1;i<=n;i++)
+    {
+        for (int j=1;j<=m;j++)
+        {
+            if (a[i][j]=='W')
+            {
+                ans++;
+                dfs(i,j);
+            }
+        }
+    }
+    cout<<ans;
+    return 0;
+}

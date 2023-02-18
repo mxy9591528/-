@@ -1,0 +1,54 @@
+#include<iostream>
+using namespace std;
+string s;
+int f[30][10],ans,cnt;
+int main(){
+    cin >> s;
+    for(int i = 1;i < s.size();i++){
+        if(s[i - 1] >= s[i]){
+            cout << 0;
+            return 0;
+        }
+    }
+    //判断字符串是否合法（升序）
+    for(int i = 1;i <= 26;i++)
+        f[i][1] = 1;
+    //长度为1的字符串数量都是1
+    for(int j = 2;j <= 6;j++)
+        for(int i = 27 - j;i > 0;i--)
+            f[i][j] = f[i + 1][j - 1] + f[i + 1][j];
+    //由公式，我们从上至下从右至左进行计算
+    for(int j = s.size() - 1;j >= 0;j--){
+        cnt++;
+        for(int i = 1;i <= s[j] - 'a' + 1;i++)
+            ans += f[i][cnt];
+    }
+    //由以上的思路计算答案
+    cout << ans;
+    return 0;
+}
+
+
+
+
+#include <iostream>
+#include <map>
+using namespace std;
+
+int cnt;
+map<string, int> M;
+string now, ask;
+
+void DFS(const int l, int k) {
+	if(k > l) { M[now] = ++cnt; return;}
+	for(char i=(k==1?'a':now[k-2]+1); i<='z'; i++)
+		now[k-1] = i, DFS(l, k+1);
+}
+
+int main() {
+	for(int len=1; len<=6; len++)
+		now.clear(), now.resize(len), DFS(len, 1);
+	cin >> ask;
+	cout << M[ask] << endl;
+	return 0;
+}

@@ -1,0 +1,28 @@
+#include<iostream>
+#include<set>
+#include<vector>
+using namespace std;
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int>s(n,0);
+    set<int>sum;
+    for(int i=0;i<n;i++)
+        cin>>s[i];
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            sum.insert(s[i]+s[j]);
+        }
+    }
+    int cnt=0;
+    for(int i=0;i<n;i++)
+    {
+        if(sum.count(s[i]))
+            cnt++;
+    }
+    cout<<cnt;
+    return 0;
+}

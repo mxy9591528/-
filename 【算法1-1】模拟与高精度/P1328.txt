@@ -1,0 +1,33 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+int list[5][5]={{0,-1,1,1,-1},{1,0,-1,1,-1},{-1,1,0,-1,1},{-1,-1,1,0,1},{1,1,-1,-1,0}};
+int main()
+{
+    int N,Na,Nb;
+    cin>>N>>Na>>Nb;
+    vector<int>Ta(Na);
+    vector<int>Tb(Nb);
+    for(int i=0;i<Na;i++)
+    {
+        cin>>Ta[i];
+    }
+    for(int i=0;i<Nb;i++)
+    {
+        cin>>Tb[i];
+    }
+    int wina=0,winb=0;
+    for(int i=0;i<N;i++)
+    {
+        if(list[Ta[i%Na]][Tb[i%Nb]]==1)
+        {
+            wina++;
+        }
+        else if(list[Ta[i%Na]][Tb[i%Nb]]==-1)
+        {
+            winb++;
+        }
+    }
+    cout<<wina<<" "<<winb;                                             
+    return 0;
+}

@@ -1,0 +1,28 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+int main()
+{
+    vector<vector<int>>v(7,vector<int>(2));
+    int max=0;
+    for(int i=0;i<7;i++)
+    {
+        for(int j=0;j<2;j++)
+        {
+            cin>>v[i][j];
+        }
+        if(v[max][0]+v[max][1]<v[i][0]+v[i][1])
+        {
+            max=i;
+        }
+    }
+    if(v[max][0]+v[max][1]<=8)
+    {
+        cout<<0;
+    }
+    else
+    {
+        cout<<max+1;
+    }
+    return 0;
+}

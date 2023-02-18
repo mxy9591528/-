@@ -1,0 +1,30 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+int main()
+{
+	int n;
+	cin >> n;
+	vector<int>v(n*n);
+	int a, index = 0;
+	bool flag = true;
+	while (cin >> a)
+	{
+		for (; a >= 1; a--)
+		{
+			if (flag)
+				v[index++] = 0;
+			else
+				v[index++] = 1;
+		}
+		flag = !flag;
+		if (index == n * n) break;
+	}
+	for (int i = 1; i <= n * n; i++)
+	{
+		cout << v[i - 1];
+		if (i % n == 0)
+			cout << endl;
+	}
+	return 0;
+}

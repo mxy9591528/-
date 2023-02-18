@@ -1,0 +1,40 @@
+#include <iostream>
+#include <set> 
+
+using namespace std;
+
+int n, op, t;
+set<int>::iterator lwb, l2, l3;
+set<int> s;
+int main()
+{
+	cin >> n;
+	for (int i = 1;i <= n;i ++){
+		cin >> op >> t;
+		if (op == 1)
+		{
+			if (!s.insert(t).second) 
+			    cout << "Already Exist\n";
+		}
+		else {
+			if (s.empty()){
+				cout << "Empty\n";
+				continue;
+			}
+			if (s.find(t) != s.end()) 
+			{
+			    cout << t;
+			    s.erase(s.find(t));
+			}
+			else 
+			{
+				lwb = l2 = l3 = s.lower_bound(t);
+				if (lwb == s.begin()) cout << *lwb, s.erase(lwb);
+				else if (lwb == s.end()) cout << *(-- l3), s.erase(l3);
+				else if (*lwb - t < t - *(-- l2)) cout << *(l3), s.erase(l3);
+				else cout << *(-- l3), s.erase(l3);
+			}
+			cout << endl;
+		}
+	}
+}

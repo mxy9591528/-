@@ -1,0 +1,73 @@
+#include<iostream>
+using namespace std;
+int f[100010],enm[100010],n,m,p,q;
+char opt;
+int find(int x)
+{
+    return x==f[x]?x:f[x]=find(f[x]);
+}
+void ad(int x,int y)
+{
+    x=find(x);
+    y=find(y);
+    if(x==y)return;
+    f[y]=x;
+    return;
+}
+int main()
+{
+    cin>>n>>m;
+    for(int i=1;i<=n;i++)
+    {
+        f[i]=i;
+    }
+    for(int i=1;i<=m;i++)
+    {
+        cin>>opt>>p>>q;
+        if(opt=='E')
+        {
+            if(!enm[p])enm[p]=find(q);
+            else ad(q,enm[p]);
+            if(!enm[q])enm[q]=find(p);
+            else ad(p,enm[q]);
+        }
+        else ad(p,q);
+    }
+    int count[1001]={0};
+    for(int i=1;i<=n;i++)
+        count[find(i)]++;
+    int cnt=0;
+    for(int i=1;i<=n;i++)
+        if(count[i]) cnt++; //统计，做得不是很简洁 
+    cout<<cnt;
+    return 0;
+}
+
+#include<iostream>
+using namespace std;
+int s,n,m,a,b,f[2500];
+char ch;
+int find(int x){
+    
+    return x==f[x]?x:f[x]=find(f[x]);
+}
+int main(){
+    cin>>n>>m;
+    for(int i=1;i<=2*n;i++){
+        f[i]=i;//初始化，千万不能漏
+    }
+    for(int i=1;i<=m;i++){
+        cin>>ch>>a>>b;
+        if(ch=='F'){
+            f[find(a)]=find(b);
+        }else{
+            f[find(a+n)]=find(b);
+            f[find(b+n)]=find(a);//反集合并
+        }
+    }
+    for(int i=1;i<=n;i++){
+        if(f[i]==i)s++;
+    }
+    cout<<s;//祖先数就是团伙数
+    return 0;
+}

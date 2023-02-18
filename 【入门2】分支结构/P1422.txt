@@ -1,0 +1,17 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int main()
+{
+    int n;
+    cin>>n;
+    double sum=0;
+    if(n<=150)
+        sum=n*0.4463;
+    else if(n>150&&n<=400)
+        sum=(n-150)*0.4663+150*0.4463;
+    else
+        sum=(n-400)*0.5663+250*0.4663+150*0.4463;
+    cout<<fixed<<setprecision(1)<<sum;
+    return 0;
+}

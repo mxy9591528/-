@@ -1,0 +1,27 @@
+
+#include<iostream>
+using namespace std;
+int a[5],homework[21],dp[2501];
+int main()
+{
+    int t=0;
+	for(int i=1;i<=4;i++)
+		cin>>a[i];
+	for(int i=1;i<=4;i++)
+	{
+		int sum=0;	
+		for(int j=1;j<=a[i];j++)
+		{
+			cin>>homework[j];
+			sum+=homework[j];
+		}
+		for(int j=1;j<=a[i];j++)
+			for(int k=sum/2;k>=homework[j];k--)
+				dp[k]=max(dp[k],dp[k-homework[j]]+homework[j]);
+		t+=sum-dp[sum/2];
+		for(int j=1;j<=sum/2;j++)
+		    dp[j]=0;
+	}
+	cout<<t;
+	return 0;
+}

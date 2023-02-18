@@ -1,0 +1,28 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+    string s;
+    cin>>s;
+    int cnt=0;
+    int sum=0;
+    for(int i=0;i<s.length();i++)
+    {
+        if(isdigit(s[i]))
+            sum+=(s[i]-'0')*(++cnt);
+        if(cnt==9)
+            break;
+    }
+    if(s[s.length()-1]-'0'==sum%11||s[s.length()-1]=='X'&&sum%11==10)
+        cout<<"Right";
+    else
+    {
+        if(sum%11<10)
+            s[s.length()-1]=(sum%11+'0');
+        else
+            s[s.length()-1]='X';
+        cout<<s;
+    }
+    return 0;
+}

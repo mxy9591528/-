@@ -1,0 +1,35 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<cmath>
+#include<iomanip>
+using namespace std;
+bool cmp(const vector<int>&e1,const vector<int>&e2)
+{
+    return e1[2]<e2[2];
+}
+double getinstance(const vector<int>&v1,const vector<int>&v2)
+{
+    return sqrt(pow(v1[0]-v2[0],2)+pow(v1[1]-v2[1],2)+pow(v1[2]-v2[2],2));
+}
+int main()
+{
+    int n;
+    cin>>n;
+    vector<vector<int>>v(n,vector<int>(3));
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            cin>>v[i][j];
+        }
+    }
+    sort(v.begin(),v.end(),cmp);
+    double res=0;
+    for(int i=1;i<n;i++)
+    {
+        res+=getinstance(v[i],v[i-1]);
+    }
+    cout<<fixed<<setprecision(3)<<res;
+    return 0;
+}

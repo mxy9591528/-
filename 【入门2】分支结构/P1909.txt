@@ -1,0 +1,24 @@
+#include<iostream>
+#include<vector>
+#include<cmath>
+using namespace std;
+int main()
+{
+    int min=0x3f3f3f3f;
+    vector<vector<int>>v(3,vector<int>(2,0));
+    int n;
+    cin>>n;
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<2;j++)
+        {
+            cin>>v[i][j];
+        }
+        if(ceil(n*1.0/v[i][0])*v[i][1]<min)
+        {
+            min=ceil(n*1.0/v[i][0])*v[i][1];
+        }
+    }
+    cout<<min;
+    return 0;
+}

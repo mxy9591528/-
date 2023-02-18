@@ -1,0 +1,19 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    string a,b;
+    cin>>a>>b;
+    int suma=1,sumb=1;
+    for(int i=0;i<a.length();i++)
+    {
+        suma*=(a[i]+1-'A');
+    }
+    for(int i=0;i<b.length();i++)
+    {
+        sumb*=(b[i]+1-'A');
+    }
+    if(suma%47==sumb%47)cout<<"GO";
+    else cout<<"STAY";
+    return 0;
+}

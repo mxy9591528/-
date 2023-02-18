@@ -1,0 +1,13 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+    int n;
+    cin>>n;
+    int minn=0x3f3f3f3f;
+    while(cin>>n)
+        minn=min(minn,n);
+    cout<<minn;
+    return 0;
+}

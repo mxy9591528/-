@@ -1,0 +1,24 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+int main()
+{
+    int m,t,s;
+    cin>>m>>t>>s;
+    if(t==0)
+    {
+        cout<<0;
+        return 0;
+    }
+    int n=ceil(s*1.0/t);
+    int res=m-n;
+    if(res<0)
+    {
+        cout<<0;
+    }
+    else
+    {
+        cout<<res;
+    }
+    return 0;
+}

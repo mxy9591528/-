@@ -1,0 +1,59 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int sit[100005];
+int L,N,K;
+inline bool check(int m)
+{
+	int y=K;
+	int size=0;
+	for(int i=1;i<N;i++)
+	{
+		if(y<0)
+		{
+			break;
+		}
+		if(sit[i]-size<=m)
+		{
+			size=sit[i];
+		}
+		else
+		{
+			size=size+m;
+			i--;
+			y--;
+		}
+	}
+	if(y>=0)
+	{
+		return true;
+	}
+	return false;
+}
+int main()
+{
+	cin>>L>>N>>K;
+	int t=0;
+	while(t<N)
+	{
+		cin>>sit[t];
+		t++;
+	}
+	int H=0,R=L;
+	int ans;
+	while(H<=R)
+	{
+		int mid=H+(R-H)/2;
+		if(check(mid))
+		{
+			ans=mid;
+			R=mid-1;
+		}
+		else
+		{
+			H=mid+1;
+		}
+	}
+	cout<<ans;
+	return 0;
+}

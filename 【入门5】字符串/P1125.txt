@@ -1,0 +1,29 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+using namespace std;
+bool isprime(int n)
+{
+    if(n<=1)return false;
+    for(int i=2;i*i<=n;i++)
+        if(n%i==0)
+            return false;
+    return true;
+}
+int main()
+{
+    vector<int>count(257,0);
+    int minn=500,maxn=0;
+    string s;
+    cin>>s;
+    for(int i=0;i<s.length();i++)
+    {
+        count[(int)s[i]]++;
+        maxn=max(count[(int)s[i]],maxn);
+        minn=min(count[(int)s[i]],minn);
+    }
+    if(isprime(maxn-minn))cout<<"Lucky Word"<<endl<<maxn-minn;
+    else cout<<"No Answer"<<endl<<0;
+    return 0;
+}

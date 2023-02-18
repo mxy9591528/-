@@ -1,0 +1,29 @@
+#include<iostream>
+#include<algorithm>
+#include<cmath>
+using namespace std;
+int a,b,c[100002],d,e;
+long long ans=0;
+int main()
+{
+    cin>>a>>b;
+    for(int i=0;i<a;i++)
+        cin>>c[i];
+    sort(c,c+a);
+    for(int i=0;i<b;i++)
+    {
+        cin>>d;
+        e=lower_bound(c,c+a,d)-c;
+        if(e==a)
+            ans+=d-c[a-1];
+        else
+        {
+            if(e==0)
+                ans+=c[0]-d;
+            else
+                ans+=min(abs(c[e]-d),abs(d-c[e-1]));
+        }
+    }
+    cout<<ans;
+    return 0;
+}

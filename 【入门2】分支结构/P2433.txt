@@ -1,0 +1,75 @@
+#include<iostream>
+using namespace std;
+
+int T;
+
+int main(){
+	cin >> T;
+	switch(T){
+		case 1:{
+			cout << "I love Luogu!" << endl;
+			break;
+		}
+		case 2:{
+			cout << 6 << ' ' << 4 << endl;
+			break;
+		}
+		case 3:{
+			cout << 14/4 << endl;
+			cout << 14/4*4 << endl;
+			cout << 14-14/4*4 << endl;
+			break;
+		}
+		case 4:{
+			cout << 500.0/3 << endl;
+			break;
+		}
+		case 5:{
+			cout << 480/32 << endl;
+			break;
+		}
+		case 6:{
+			cout << sqrt(6*6+9*9) << endl;
+			break;
+		}
+		case 7:{
+			cout << 110 << endl;
+			cout << 90 << endl;
+			cout << 0 << endl;
+			break;
+		}
+		case 8:{
+			double Pi=3.141593;
+			cout << Pi*10 << endl;
+			cout << Pi*25 << endl;
+			cout << Pi*125*4/3 << endl; 
+			break;
+		}
+		case 9:{
+			cout << 22 << endl;
+			break;
+		}
+		case 10:{
+			 cout << 9 << endl;
+			break;
+		}
+		case 11:{
+			cout << (double)100/3 << endl;
+			break;
+		}
+		case 12:{
+			cout << 'M'-'A'+1 << endl;
+			cout << char('A'+17) << endl;
+			break;
+		}
+		case 13:{
+			cout << 16 << endl;
+			break;
+		}
+		case 14 :{
+			cout << 50 << endl;
+			break;
+		}
+	}
+	return 0;
+}

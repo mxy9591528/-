@@ -1,0 +1,31 @@
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+using namespace std;
+char a[101][101];
+int fW,fB,fR,W[101],B[101],R[101];
+int n,m,ans=0x7fffffff,sum;
+int main(){
+	scanf("%d%d\n",&n,&m);
+	for(int i=1;i<=n;i++)gets(a[i]);
+	for(int i=1;i<=n;i++){
+		fW=fB=fR=0;
+		for(int j=0;j<m;j++){
+			if(a[i][j]!='W')fW++;
+			if(a[i][j]!='B')fB++;
+			if(a[i][j]!='R')fR++;
+		}
+		W[i]=W[i-1]+fW;//维护前缀和
+		B[i]=B[i-1]+fB;
+		R[i]=R[i-1]+fR;
+	}
+	
+	for(int i=2;i<n;i++){
+		for(int j=i+1;j<=n;j++){
+			sum=W[i-1]-W[0]+B[j-1]-B[i-1]+R[n]-R[j-1];//前缀和的差分
+			if(sum<ans)ans=sum;
+		}
+	}
+	printf("%d",ans);
+	return 0;
+}

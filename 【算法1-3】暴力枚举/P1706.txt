@@ -1,0 +1,58 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int n,a[100];
+bool vis[100];
+void print()
+{
+    for(int i=1;i<=n;i++)
+        cout<<setw(5)<<a[i];
+    cout<<endl;
+}
+void dfs(int k)
+{
+    if(k==n) 
+    {
+        print();
+        return;
+    }
+    for(int i=1;i<=n;i++)
+    {
+        if(!vis[i])
+        {
+            vis[i]=true;
+            a[k+1]=i;
+            dfs(k+1);
+            vis[i]=false;
+        }
+    }
+}
+int main()
+{
+    cin>>n;
+    dfs(0);
+    return 0;
+}
+
+#include<iostream>
+#include <algorithm>
+using namespace std;
+int a[10];
+int main()
+{
+	int n,i,j=1,k;
+	cin>>n;
+	for(int i=1;i<=n;i++)
+	{
+	    a[i]=n-i+1;
+	    j*=i;
+	}
+	for(i=1;i<=j;i++)
+	{
+	 next_permutation(a+1,a+n+1);
+	  for(k=1;k<=n;k++)
+	    cout<<"    "<<a[k];
+	  cout<<endl;
+	}
+	return 0;
+}

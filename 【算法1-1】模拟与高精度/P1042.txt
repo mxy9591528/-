@@ -1,0 +1,29 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+string s;
+void show(int n)
+{
+    int a=0,b=0;
+    for(int i=0;i<s.length();i++)
+    {
+        if(s[i]=='W')a++;
+        else b++;
+        if((a>=n||b>=n)&&abs(a-b)>=2)
+        {
+            cout<<a<<":"<<b<<endl;
+            a=b=0;
+        }
+    }
+    cout<<a<<":"<<b<<endl;
+}
+int main()
+{
+    char ch;
+    while((cin>>ch)&&ch!='E')
+        s+=ch;
+    show(11);
+    cout<<endl;
+    show(21);
+    return 0;
+}

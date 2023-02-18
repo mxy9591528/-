@@ -1,0 +1,23 @@
+#include<iostream>
+#include<map>
+using namespace std;
+int main()
+{
+    int n;
+    cin>>n;
+    map<string,int>m;
+    int a,score;
+    string name;
+    for(int i=0;i<n;i++)
+    {
+        cin>>a;
+        switch(a)
+        {
+            case 1:cin>>name>>score;m[name]=score;cout<<"OK"<<endl;break;
+            case 2:cin>>name;if(m.count(name))cout<<m[name]<<endl;else cout<<"Not found"<<endl;break;
+            case 3:cin>>name;if(m.count(name)){m.erase(m.find(name));cout<<"Deleted successfully"<<endl;}else cout<<"Not found"<<endl;break;
+            case 4:cout<<m.size()<<endl;
+        }
+    }
+    return 0;
+}

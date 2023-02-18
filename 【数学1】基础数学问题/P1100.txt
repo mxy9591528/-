@@ -1,0 +1,38 @@
+#include<cstdio>
+#include<iostream>
+using namespace std;
+int main()
+{
+    unsigned long long x;
+    cin>>x;
+    cout<<((x&0x0000ffff)<<16|(x&0xffff0000)>>16)<<endl;
+    return 0;
+}
+
+
+#include<iostream>
+#include<cmath>
+using namespace std;
+int main()
+{
+	long long a,sum=0,x=0;
+	cin>>a;
+	while(a)
+	{
+		if(a&1)
+		{
+			if(x<16)
+			{
+				sum+=pow(2,x+16);
+			}
+			else
+			{
+				sum+=pow(2,x-16);
+			}
+		}
+		a/=2;
+		x++;
+	}
+	cout<<sum;
+	return 0;
+}

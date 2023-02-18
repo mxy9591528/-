@@ -1,0 +1,11 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int n;
+    cin>>n;
+    int t1=5*n;
+    int t2=3*n+11;
+    cout<<(t1<t2?"Local":"Luogu");
+    return 0;
+}

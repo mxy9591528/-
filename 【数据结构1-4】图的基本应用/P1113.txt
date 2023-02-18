@@ -1,0 +1,113 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int n,l,t,ans[10005],maxans;
+int main()
+{
+    cin>>n;
+    for(int i=1;i<=n;++i){
+        cin>>i;
+        cin>>l;
+        int tmp=0;
+        while(cin>>t&&t)
+            tmp=max(ans[t],tmp);
+        ans[i]=tmp+l;
+        maxans=max(ans[i],maxans);
+    } 
+    cout<<maxans;
+    return 0;
+ } 
+ 
+ 
+#include <iostream>
+#include<vector>
+#include<queue>
+#include<algorithm>
+using namespace std;
+const int N=10010;
+int n,t,tim[N],e;
+int rud[N],dp[N],ans;
+vector<int> to[N];
+queue<int> q;
+int main(){
+	cin>>n;
+	for(int i=1;i<=n;i++){
+		cin>>t;
+		cin>>tim[t];
+		cin>>e;
+		while(e!=0){
+			to[e].push_back(t);
+			rud[t]++;
+			cin>>e;
+		} 
+	} for(int i=1;i<=n;i++)
+		if(!rud[i]){
+			q.push(i);
+			dp[i]=tim[i];
+		}
+	while(!q.empty()){
+		int now=q.front();
+		q.pop();
+		for(int i=0;i<to[now].size();i++){
+			int nex=to[now][i];
+			dp[nex]=max(dp[nex],dp[now]+tim[nex]);
+			rud[nex]--;
+			if(rud[nex]==0)
+				q.push(nex);
+		}
+	} for(int i=1;i<=n;i++)
+			ans=max(ans,dp[i]);
+	cout<<ans;
+	return 0;
+}
+
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+#define ll long long
+
+using namespace std;
+
+//以上都是模板，不解释
+
+const int N=10005;
+
+int a[N],f[N];  //f数组含义如上所示
+vector <int> edge[N];  //我习惯使用vector邻接表存图，其他存图方式做法类似
+
+//这里开始是重点
+
+int dfs(int x) {
+	if (f[x]) return f[x];  //假如已经被访问过，直接返回
+	for (int i=0;i<edge[x].size();i++) {  //循环：x 的每条出边指向的点
+		f[x]=max(f[x],dfs(edge[x][i]));  //DP，求pre的最大值
+	}
+	f[x]+=a[x];  //加上a[i]的值，即DP方程
+	return f[x];  //返回DP的结果
+}
+
+int main() {
+    int n;
+	cin>>n;
+	for (int i=1;i<=n;i++) {
+		int x;
+		cin>>x;
+		cin>>a[i];
+		int y;
+		cin>>y;
+        //以下的读入不解释
+		while (y!=0) {
+			edge[y].push_back(x);
+			cin>>y;
+		}
+	}
+    //对于每一个点进行dfs，求f的值
+	int ans=0;
+	for (int i=1;i<=n;i++) {
+		ans=max(ans,dfs(i));  //取最大值
+	}
+	cout<<ans;
+	return 0;
+}

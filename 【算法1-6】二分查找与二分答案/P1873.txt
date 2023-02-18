@@ -1,0 +1,27 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+long long n,bz,s=0,mid,l,longest,trees[1000008];
+int main()
+{
+    cin>>n>>bz;
+    for(int i=1;i<=n;i++) 
+    {
+        cin>>trees[i];
+        longest=max(longest,trees[i]);
+    }
+    while(l<=longest)
+    {
+        mid=(l+longest)/2; 
+        s=0; 
+        for(int i=1;i<=n;i++) 
+			if(trees[i]>mid) 
+				s+=trees[i]-mid;
+        if(s<bz)  
+			longest=mid-1;
+		else 
+			l=mid+1;
+    }
+    cout<<l-1; 
+    return 0;
+}

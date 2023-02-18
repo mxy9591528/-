@@ -1,0 +1,43 @@
+#include<iostream>
+#include<vector>
+#include<cmath>
+using namespace std;
+int main()
+{
+    int n;
+    cin>>n;
+    vector<vector<int>>v(n,vector<int>(4));
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            cin>>v[i][j];
+            v[i][3]+=v[i][j];
+        }
+    }
+    int cnt=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            if(abs(v[j][3]-v[i][3])<=10)
+            {
+                bool flag=true;
+                for(int k=0;k<3;k++)
+                {
+                    if(abs(v[j][k]-v[i][k])>5)
+                    {
+                        flag=false;
+                        break;
+                    }
+                }
+                if(flag)
+                {
+                    cnt++;
+                }
+            }
+        }
+    }
+    cout<<cnt;
+    return 0;
+}

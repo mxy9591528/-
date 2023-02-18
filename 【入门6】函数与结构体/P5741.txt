@@ -1,0 +1,34 @@
+#include<iostream>
+#include<vector>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+struct Student
+{
+    string name;
+    int a,b,c;
+    int sum;
+}s[1001];
+int main()
+{
+    vector<pair<string,string>>v;
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>s[i].name>>s[i].a>>s[i].b>>s[i].c;
+        s[i].sum=s[i].a+s[i].b+s[i].c;
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            if(abs(s[i].a-s[j].a)<=5&&abs(s[i].b-s[j].b)<=5&&abs(s[i].c-s[j].c)<=5&&abs(s[i].sum-s[j].sum)<=10)
+                v.push_back({s[i].name,s[j].name});
+        }
+    }
+    sort(v.begin(),v.end(),less<pair<string,string>>());
+    for(int i=0;i<(int)v.size();i++)
+        cout<<v[i].first<<" "<<v[i].second<<endl;
+    return 0;
+}

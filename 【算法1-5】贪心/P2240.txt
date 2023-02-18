@@ -1,0 +1,30 @@
+#include<iostream>
+#include<algorithm>
+#include<iomanip>
+using namespace std;
+struct Node{
+	int w,v;
+}a[110];
+bool cmp(Node aa,Node bb){
+	return aa.v*bb.w>aa.w*bb.v;
+}
+int main()
+{
+    int n,m;
+	cin>>n>>m;
+	double ans=0;
+	for(int i=1;i<=n;i++) cin>>a[i].w>>a[i].v;
+	sort(a+1,a+n+1,cmp);
+	for(int i=1;i<=n;i++)
+	{
+		if(a[i].w<=m) 
+		    ans+=a[i].v,m-=a[i].w;
+		else
+		{
+			ans+=a[i].v*m*1.0/(a[i].w*1.0);
+			break;
+		}
+	}
+	cout<<fixed<<setprecision(2)<<ans<<endl;
+	return 0;
+}

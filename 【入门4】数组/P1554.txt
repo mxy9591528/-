@@ -1,0 +1,23 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+int main()
+{
+    int l,r;
+    cin>>l>>r;
+    vector<int>res(10,0);
+    for(int i=l;i<=r;i++)
+    {
+        int ret=i;
+        while(ret)
+        {
+            res[ret%10]++;
+            ret/=10;
+        }
+    }
+    for(auto i:res)
+    {
+        cout<<i<<" ";
+    }
+    return 0;
+}

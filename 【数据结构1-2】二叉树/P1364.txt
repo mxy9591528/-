@@ -1,0 +1,138 @@
+#include<iostream>
+#define INF 2147483647
+using namespace std;
+const int MAXN = 10010;
+struct Edge{
+	int next, to;
+}e[MAXN << 1];
+int head[MAXN], num, w[MAXN], n, size[MAXN];
+long long ans = INF, f[MAXN];
+inline void Add(int from, int to){
+	e[++num].to = to;
+	e[num].next = head[from];
+	head[from] = num;
+}
+void dfs(int u, int fa, int dep){ 
+    size[u] = w[u];
+	for(int i = head[u]; i; i = e[i].next){
+	   if(e[i].to != fa)
+	     dfs(e[i].to, u, dep + 1), size[u] += size[e[i].to];
+	}
+	f[1] += w[u] * dep;
+}
+void dp(int u, int fa){
+    for(int i = head[u]; i; i = e[i].next)
+       if(e[i].to != fa)
+         f[e[i].to] = f[u] + size[1] - size[e[i].to] * 2, dp(e[i].to, u);
+    ans = min(ans, f[u]); 
+}
+int a, b;
+int main(){
+    ans *= ans;
+    cin>>n;
+    for(int i=1;i<=n;i++)
+    {
+       cin>>w[i]>>a>>b;
+       if(a) Add(i, a), Add(a, i);
+       if(b) Add(i, b), Add(b, i);
+    }
+    dfs(1, 0, 0);
+    dp(1, 0);
+    cout<<ans;
+    return 0;
+}
+
+
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int a[101],g[101][101];
+int main()
+{
+	int n,l,r,minn,total;
+	cin>>n;
+	for(int i=1;i<=n;i++)
+	{
+		for(int j=1;j<=n;j++)
+		{
+			g[i][j]=1000000;
+		}
+	}
+	for(int i=1;i<=n;i++)
+	{
+		g[i][i]=0;
+		cin>>a[i]>>l>>r;
+		if(l>0)g[i][l]=g[l][i]=1;
+		if(r>0)g[i][r]=g[r][i]=1; 
+	}
+	for(int k=1;k<=n;k++)
+	{
+		for(int i=1;i<=n;i++)
+		{
+			if(i!=k)
+			{
+				for(int j=1;j<=n;j++)
+				{
+					if(i!=j&&k!=j&&g[i][k]+g[k][j]<g[i][j])
+						g[i][j]=g[i][k]+g[k][j];
+				}
+			}
+		}
+	}
+	minn=0x7fffffff;
+	for(int i=1;i<=n;i++)
+	{
+		total=0;
+		for(int j=1;j<=n;j++)
+			total+=g[i][j]*a[j];
+		minn=min(total,minn);
+	}
+	cout<<minn;
+	return 0;
+}
+
+
+#include<iostream>
+#include<algorithm>
+#include<cstring>
+#include<queue>
+using namespace std;
+bool g[105][105]={0};            
+bool v[105]={0};
+int n,num[105],ans=1<<30;
+struct node{
+    int u,step;
+};
+int bfs(int x){                    
+    memset(v,0,sizeof(v));
+    queue<node> q;
+    v[x]=1;
+    q.push((node){x,0});
+    int sum=0;
+    while(!q.empty()){
+        node now=q.front();
+        q.pop();
+        for(int i=1;i<=n;i++)
+            if(g[now.u][i]&&!v[i]){
+                node next={i,now.step+1};
+                sum+=num[i]*next.step;
+                v[i]=1;
+                q.push(next);
+            }
+    }
+    return sum;
+}
+int main(){
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        int a,l,r;
+        cin>>a>>l>>r;
+        num[i]=a;
+        if(l) g[i][l]=g[l][i]=1;
+        if(r) g[i][r]=g[r][i]=1;
+    }
+    for(int i=1;i<=n;i++)
+        ans=min(ans,bfs(i));
+    cout<<ans;
+    return 0;
+}

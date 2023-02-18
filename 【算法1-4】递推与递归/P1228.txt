@@ -1,0 +1,56 @@
+#include <iostream>
+
+using namespace std;
+#define ul dfs(zx+l-1,zy+l-1,zx,zy,l);
+#define ur dfs(zx+l-1,zy+l,zx,zy+l,l);
+#define dl dfs(zx+l,zy+l-1,zx+l,zy,l);
+#define dr dfs(zx+l,zy+l,zx+l,zy+l,l);
+
+void dfs(int x,int y,int zx,int zy,int l){
+    if(l==1) return;
+    l>>=1;
+    //左上角
+    if(x-zx<l&&y-zy<l)
+    {
+        cout<<zx+l<<" "<<zy+l<<" 1"<<endl;
+        dfs(x,y,zx,zy,l);
+        ur
+        dl
+        dr 
+
+    }
+    //右上角
+    if(x-zx<l&&y-zy>=l){
+        cout<<zx+l<<" "<<zy+l-1<<" 2"<<endl;
+        dfs(x,y,zx,zy+l,l);
+        ul
+        dl
+        dr 
+    }
+    //左下角
+    if(x-zx>=l&&y-zy<l)
+    {
+        cout<<zx+l-1<<" "<<zy+l<<" "<<" 3"<<endl;
+        dfs(x,y,zx+l,zy,l);
+        ul
+        ur
+        dr 
+    }
+    //右下角 
+    if(x-zx>=l&&y-zy>=l)
+    {
+        cout<<zx+l-1<<" "<<zy+l-1<<" 4"<<endl;
+        dfs(x,y,zx+l,zy+l,l);
+        ul
+        ur
+        dl
+    }
+}
+
+int main()
+{
+    int k,x,y;
+    cin>>k>>x>>y;
+    dfs(x,y,1,1,1<<k);
+    return 0;
+}

@@ -1,0 +1,43 @@
+#include <iostream>
+#include<iomanip>
+#include<cstring>
+#include <queue>
+
+using namespace std;
+struct node {
+	int x, y, step;
+};
+int m, n, x, y;
+int u[8]= {1, 2, 2, 1, -1, -2, -2, -1};
+int v[8]= {-2, -1, 1, 2, 2, 1, -1, -2};
+int maze[401][401];
+queue<node> q;
+
+void bfs(int r, int t) {
+	memset(maze, -1, sizeof(maze));
+	maze[r][t] = 0;
+	q.push((node) {r, t, 0});
+	while (!q.empty()) {
+		node a = q.front();
+		q.pop();
+		for (int i = 0; i <8; i++) {
+			int fx = a.x + u[i];
+			int fy = a.y + v[i];
+			if (fx >= 1 && fx <= n && fy >= 1 && fy <= m && maze[fx][fy] == -1) {
+				maze[fx][fy] = a.step + 1;
+				q.push((node) {fx, fy, a.step + 1}); 
+			}
+		}
+	}
+}
+
+int main() {
+	cin>>n>>m>>x>>y;
+	bfs(x, y);
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) 
+			cout << setw(5) << std::left << maze[i][j];
+		cout<<endl;
+	}
+	return 0;
+}

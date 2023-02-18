@@ -1,0 +1,31 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+using namespace std;
+string Add(string&s,string&t)
+{
+	int lens = s.size(), lent = t.size(), lenmax = (lens > lent ? lens : lent) + 2, curindex = lenmax - 1, temp = 0, ret = 0;
+	string res;
+	res.resize(lenmax);
+	while (lens || lent)
+	{
+		temp = ret;
+		if (lent)
+			temp += t[--lent] - '0';
+		if (lens)
+			temp += s[--lens] - '0';
+		ret = temp / 10;
+		temp %= 10;
+		res[--curindex] = temp + '0';
+	}
+	res[0] = ret + '0';
+	return ret ? res : (res.c_str() + 1);
+}
+int main()
+{
+	string s, t;
+	cin >> s >> t;
+	cout<<Add(s, t);
+	return 0;
+}

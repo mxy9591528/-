@@ -1,0 +1,20 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int n,k=1;
+    cin>>n;
+    while(true)
+    {
+        for(int x=100;x>=1;x--)
+        {
+            if(n==(7*x+21*k)*52)
+            {
+                cout<<x<<endl<<k<<endl;
+                return 0;
+            }
+        }
+        k++;
+    }
+    return 0;
+}

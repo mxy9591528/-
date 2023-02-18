@@ -1,0 +1,48 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<queue>
+using namespace std;
+typedef struct NODE
+{
+    int x,y,val;
+}NODE;
+struct cmp
+{
+    bool operator()(const NODE& a,const NODE& b)//重载运算符
+    {
+        return a.val<b.val;//重载
+    }
+};
+priority_queue<NODE,vector<NODE>,cmp>gx;//大根堆（对于val）
+int bcj[100000];//并查集
+int find(int node)//并查集找根节点过程
+{
+    if(bcj[node]!=node)return bcj[node]=find(bcj[node]);
+    return node;
+}
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    int dr1,dr2,zhi;
+    for(int i=1;i<=2*n;i++)bcj[i]=i;//初始化，记得是2*n
+    while(m--)
+    {
+        cin>>dr1>>dr2>>zhi;
+        gx.push((NODE){dr1,dr2,zhi});
+    }
+    while(!gx.empty())//一直到没有冲突
+    {
+        if(find(gx.top().x)==find(gx.top().y))//如果在同一并查集内
+        {
+            cout<<gx.top().val;
+            return 0;
+        }
+        bcj[bcj[gx.top().x]]=bcj[find(gx.top().y+n)];
+        bcj[bcj[gx.top().y]]=bcj[find(gx.top().x+n)];//维护新的关系，记得有两个并查集要维护
+        gx.pop();
+    }
+    cout<<0;
+    return 0;
+}

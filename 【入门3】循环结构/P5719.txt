@@ -1,0 +1,20 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int main()
+{
+    int n,k;
+    cin>>n>>k;
+    int sum=0,sumA=0,cnt=0;
+    for(int i=1;i<=n;i++)
+    {
+        sum+=i;
+        if(i%k==0)
+        {
+            sumA+=i;
+            cnt++;
+        }
+    }
+    cout<<fixed<<setprecision(1)<<sumA*1.0/cnt<<" "<<(sum-sumA)*1.0/(n-cnt);
+    return 0;
+}

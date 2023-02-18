@@ -1,0 +1,12 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int sh,sm,eh,em;
+    cin>>sh>>sm>>eh>>em;
+    int m=eh*60+em-sh*60-sm;
+    int h=m/60;
+    m%=60;
+    cout<<h<<" "<<m;
+    return 0;
+}

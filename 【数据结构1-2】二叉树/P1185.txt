@@ -1,0 +1,179 @@
+#include<iostream>
+#include<cmath>
+#define f first
+#define s second
+using namespace std;
+char tree[2000][2000];
+int m,n,Floor,tmp1,tmp2;
+void make_tree()
+{
+    bool flag;
+    for(int i=1;i<=Floor;i++)
+        for(int j=1;j<=Floor-i;j++)
+            tree[i][j]=' ';
+    for(int i=Floor;i>=1;i--)
+    {
+        flag=0;
+        for(int j=1;j<=2*Floor;j++)
+            if(((j%6==1||j%6==5)&&i==Floor)||(tree[i+1][j-1]=='/'&&tree[i+1][j+1]=='\\'))
+                tree[i][j]='o';
+            else if((tree[i+1][j-1]=='o'||tree[i+1][j-1]=='/')&&flag==0&&tree[i][j-2]!='\\')
+            {
+                tree[i][j]='/';
+                flag=1;
+            }
+            else if((tree[i+1][j+1]=='o'||tree[i+1][j+1]=='\\')&&flag==1)
+            {
+                tree[i][j]='\\';
+                flag=0;
+            }
+            else
+                tree[i][j]=' ';
+    }
+}
+pair<int,int> find_tree(int x,int y)
+{
+    int cnt1=0,cnt2=0,i,j;//cnt1:当前查找到的纵向节点数量，cnt2:当前查找到的横向节点数量
+    for(i=1,j=Floor;i<=Floor&&j>=1;i++,j--)
+    {
+        if(tree[i][j]=='o'||tree[i][j]=='*')
+            cnt1++;
+        if(cnt1==x)break;
+    }
+    for(j=j;j<=2*Floor;j++)
+    {
+        if(tree[i][j]=='o'||tree[i][j]=='*')
+            cnt2++;
+        if(cnt2==y)break;
+    }
+    return {i,j};
+}
+void delete_tree(pair<int,int>x)
+{
+    tree[x.f][x.s]='*';
+    if(tree[x.f-1][x.s-1]=='\\')
+        for(int i=x.f-1,j=x.s-1;i>=1&&j>=1;i--,j--)
+        {
+            if(tree[i][j]=='\\')tree[i][j]='-';
+            else if(tree[i][j]=='o')break;
+        }
+    if(tree[x.f-1][x.s+1]=='/')
+        for(int i=x.f-1,j=x.s+1;i>=1&&j<=2*Floor;i--,j++)
+        {
+            if(tree[i][j]=='/')tree[i][j]='-';
+            else if(tree[i][j]=='o')break;
+        }
+    for(int i=x.f+1,j=x.s-1;i<=Floor&&j>=1;i++,j--)
+        if(tree[i][j]=='/')tree[i][j]='-';
+        else if(tree[i][j]=='*')break;
+        else if(tree[i][j]=='o'){delete_tree({i,j});break;}
+    for(int i=x.f+1,j=x.s+1;i<=Floor&&j>=1;i++,j++)
+        if(tree[i][j]=='\\')tree[i][j]='-';
+        else if(tree[i][j]=='*')break;
+        else if(tree[i][j]=='o'){delete_tree({i,j});break;}
+}
+void print_tree()
+{
+    for(int i=1;i<=Floor;i++)
+    {
+        for(int j=1;j<=2*Floor;j++)
+            if(tree[i][j]!='*'&&tree[i][j]!='-')cout<<tree[i][j];
+            else cout<<" ";
+        cout<<endl;
+    }
+}
+int main()
+{
+    cin>>m>>n;
+    Floor=3*pow(2,m-2);
+    make_tree();
+    for(int i=0;i<n;i++)
+    {
+        cin>>tmp1>>tmp2;
+        delete_tree({find_tree(tmp1,tmp2)});
+    }
+    print_tree();
+    return 0;
+}
+
+
+
+
+
+#include<iostream>
+#define Ll long long
+using namespace std;
+int k,n,m,p,x,y;
+char c[800][1600];
+bool f[800][1600];//在第x,y点,a,b是用来判节点的,k表示点还是边，xx,yy表示这个点或这个边的父亲 
+void dfs1(int x,int y,int a,int b,int k,int xx,int yy){
+    if(x==n)
+    {
+        c[x][y]='o';
+        return;
+    }
+    if(k==1)
+    {
+        c[x][y]='o';
+        int X=xx+1,Y=(yy-1)*2+1;//左儿子 
+        if(!f[X][Y])
+            dfs1(x+1,y-1,a+1,b,2,X,Y);
+        X=xx+1,Y=yy*2;//又儿子 
+        if(!f[X][Y])
+            dfs1(x+1,y+1,a+1,b,3,X,Y);
+    }
+    else
+    {
+        if(k==2)
+        {
+            c[x][y]='/';
+            if(a*2==b)
+                dfs1(x+1,y-1,1,a,1,xx,yy);//这个就是判断接下来是边还是点 
+            else    
+                dfs1(x+1,y-1,a+1,b,2,xx,yy);
+        }
+        else
+        {
+            if(k==3)
+            {
+                c[x][y]=92;
+                if(a*2==b)
+                    dfs1(x+1,y+1,1,a,1,xx,yy);
+                else    
+                    dfs1(x+1,y+1,a+1,b,3,xx,yy);
+            }
+        }
+    }
+}
+void make(int k){
+    n=3;
+    for(int i=3;i<=k;i++)n*=2;
+    m=6*(1<<(k-2))-1;//计算画布大小 
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=m;j++)
+            c[i][j]=' ';//填充画布 
+    dfs1(1,m/2+1,1,n,1,1,1);    
+}
+int main()
+{
+    cin>>k>>p;
+    while(p--)
+    {
+        cin>>x>>y;
+        f[x][y]=1;
+    }//记录这个节点是否可以画 
+    if(k==1)
+    {
+        n=m=1;
+        c[1][1]='o';
+    }
+    else 
+        make(k);
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+            cout<<c[i][j];
+        cout<<endl;
+    }
+    return 0;
+}

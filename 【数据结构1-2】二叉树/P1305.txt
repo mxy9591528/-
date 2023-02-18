@@ -1,0 +1,70 @@
+#include<iostream>
+#include<string>
+using namespace std;
+struct node{
+	string data;
+	int l,r;
+	
+}t[1005];
+int n;
+void xx(int k)
+{
+	cout<<t[k].data;
+	if(t[k].l!=0)
+		xx(t[k].l);
+	if(t[k].r!=0)
+		xx(t[k].r);
+        
+		
+}
+int main(){
+	cin>>n;
+	int rt;
+	for(int i=1;i<=n;i++)
+	{
+		char a,b,c;
+		cin>>a>>b>>c;
+		if(i==1)
+			rt=a-'a'+1;
+		t[a-'a'+1].data=a;
+      	if(b!='*')
+		{
+			t[b-'a'+1].data=b;
+			t[a-'a'+1].l=b-'a'+1;
+		}
+		if(c!='*')
+		{
+			t[c-'a'+1].data=c;
+			t[a-'a'+1].r=c-'a'+1;
+		}
+	}
+	xx(rt);
+	return 0;
+}
+
+
+#include<iostream>
+#include<string>
+using namespace std;
+int n;
+string s;
+int main()
+{
+	cin>>n;
+	cin>>s;
+	for(int i=2;i<=n;++i)
+	{
+		string ss;
+		cin>>ss;
+		int x=s.find(ss[0]);
+		s.erase(x,1);
+		s.insert(x,ss);
+	}
+	for(int i=0;i<s.size();++i)
+	{
+	    if(s[i]!='*') 
+	        cout<<s[i];
+	    else continue;
+	}
+	return 0;
+}

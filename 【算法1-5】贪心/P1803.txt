@@ -1,0 +1,31 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+typedef struct A
+{
+    int s,e;
+}A;
+bool cmp(const A&a1,const A&a2)
+{
+    return a1.e<a2.e;
+}
+int main()
+{
+    int n;
+    cin>>n;
+    A a[n];
+    for(int i=0;i<n;i++)cin>>a[i].s>>a[i].e;
+    sort(a,a+n,cmp);
+    int pos = 0; 
+	int cnt=0;
+	for(int i=0;i<n;i++)
+	{
+		if(pos<=a[i].s)
+		{
+			pos = a[i].e;
+			cnt++;
+		}
+	}
+	cout<<cnt;
+    return 0;
+}

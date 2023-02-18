@@ -1,0 +1,16 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    double s,begin=2,rate=0.98;
+    int step=0;
+    cin>>s;
+    while(s>=0)
+    {
+        s-=begin;
+        begin*=rate;
+        step++;
+    }
+    cout<<step;
+    return 0;
+}

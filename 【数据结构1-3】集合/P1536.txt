@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+int fa[1000001], n, m, x, y;
+int find(int x)
+{
+    if(x == fa[x]) return x;
+    return fa[x]=find(fa[x]);
+} 
+void unity(int x, int y)
+{
+    int r1 = find(x);//找到x的祖先 
+    int r2 = find(y);//找到y的祖先 
+    fa[r1] = r2;//祖先和祖先结为父子(谁是父亲谁是儿子都可以) 
+}//合并 
+int main()
+{
+	while(true)
+	{
+		int ans = 0;//ans要在循环中定义为0
+		cin>>n;
+		if(n == 0)
+		{
+			return 0;
+		}
+		cin>>m;
+	    for(int i = 1; i <= n; i++)
+	    {
+	        fa[i] = i;
+	    }
+	    for(int i = 1; i <= m; i++)
+	    {
+	        cin>>x>>y;
+	        unity(x, y);
+	    }
+	    for(int i = 1; i <= n; i++)
+	    {
+	    	if(find(i) == i)
+	    	{
+	    		ans++;
+			}
+		}
+		cout<<ans-1<<endl;
+	}
+    return 0;
+}

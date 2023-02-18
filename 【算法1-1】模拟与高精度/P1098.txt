@@ -1,0 +1,80 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	int p1, p2, p3;
+	string s;
+	cin >> p1 >> p2 >> p3 >> s;
+	for (int i = 1; i < s.size() - 1; i++)
+	{
+		if (s[i] == '-')
+		{
+			int pos = i + 1;
+			string tmp = "";
+			char cb, ce;
+			bool flag = false;
+			if (isdigit(s[i - 1]) && isdigit(s[i + 1]) && s[i + 1] > s[i - 1])
+			{
+				cb = s[i - 1] + 1;
+				ce = s[i + 1];
+				for (char j = cb; j < ce; j++)
+				{
+					for (int k = 0; k < p2; k++)
+					{
+						if (p1 == 3)
+						{
+							tmp += '*';
+						}
+						else
+						{
+							tmp += j;
+						}
+					}
+				}
+				flag = true;
+			}
+			else if (isalpha(s[i - 1]) && isalpha(s[i + 1]) && s[i + 1] > s[i - 1])
+			{
+				if (p1 == 1||p1==3)
+				{
+					cb = s[i - 1] + 1;
+					ce = s[i + 1];
+				}
+				else if (p1 == 2)
+				{
+					cb = s[i - 1] - 32 + 1;
+					ce = s[i + 1] - 32;
+				}
+				for (char j = cb; j < ce; j++)
+				{
+					for (int k = 0; k < p2; k++)
+					{
+						if (p1 == 3)
+						{
+							tmp += '*';
+						}
+						else
+						{
+							tmp += j;
+						}
+					}
+				}
+				flag = true;
+			}
+			if (p3 == 2)
+			{
+				reverse(tmp.begin(), tmp.end());
+			}
+			s.insert(pos, tmp);
+			if (flag)
+			{
+				s.erase(i, 1);
+				i--;
+			}
+		}
+	}
+	cout << s;
+	return 0;
+}

@@ -1,0 +1,32 @@
+#include<iostream>
+#include<queue>
+using namespace std;
+int N,A,B,to[205],vis[205];
+typedef struct node{int level,step;}P;
+queue<P>q;
+int main()
+{
+    cin>>N>>A>>B;
+    P p;
+    for(int i=1;i<=N;i++)cin>>to[i];
+    q.push((P){A,0});
+    while(q.size())
+    {
+        p=q.front();
+        q.pop();
+        if(p.level==B)break;
+        if(p.level+to[p.level]<=N&&!vis[p.level+to[p.level]])
+        {
+            q.push((P){p.level+to[p.level],p.step+1});
+            vis[p.level+to[p.level]]=1;
+        }
+        if(p.level-to[p.level]<=N&&!vis[p.level-to[p.level]])
+        {
+            q.push((P){p.level-to[p.level],p.step+1});
+            vis[p.level-to[p.level]]=1;
+        }
+    }
+    if(p.level==B)cout<<p.step;
+    else cout<<-1;
+    return 0;
+}

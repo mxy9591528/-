@@ -1,0 +1,21 @@
+#include<iostream>
+#include<map>
+using namespace std;
+map<int,int>mmp[100005];
+int n,ans;
+int main()
+{
+    cin>>n;
+    for(int i=1;i<=n;i++)
+    {
+        string a,b;
+        cin>>a>>b;
+        int A=a[0]*26+a[1];
+        int B=b[0]*26+b[1];
+        ans+=mmp[B][A];
+        if(A==B)ans-=mmp[A][B];
+        mmp[A][B]++;
+    }
+    cout<<ans;
+    return 0;
+}

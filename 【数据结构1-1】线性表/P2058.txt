@@ -1,0 +1,44 @@
+#include<iostream>
+#include<queue>
+using namespace std;
+int n, t, m, x;
+int temp_nation[1000005];
+int ans;
+
+typedef struct node
+{
+    int s, t;
+}node;
+queue<node>q;
+node h;
+
+int main()
+{
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>t>>m;
+        while(!q.empty())
+        {
+            h = q.front();
+            if(h.t+86400<=t)
+            {
+                temp_nation[h.s]--;
+                if(temp_nation[h.s]==0)   ans--;
+                q.pop();
+                continue;
+            }
+            break;
+        }
+        for(int j=0;j<m;++j) 
+        {
+            cin>>x;
+            h.s = x, h.t = t;
+            q.push(h);
+            temp_nation[x]++;
+            if(temp_nation[x]==1)  ans++;
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}
